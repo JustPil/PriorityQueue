@@ -431,34 +431,35 @@ public class BinarySearchTree<T>
         {
             return false;
         }
-        if(root.getData() == data && nodeCount == 1)
-        {
-            root = null;
-            nodeCount--;
-            return true;
-        }
         BSTNode<T> node1 = root;
         BSTNode<T> node2 = node1;
-        if(root.getData() == data)
+        if(root.getData().equals(data))
         {
-            node1 = node1.getLeft();
-            while(node1.getRight() != null)
+            if (root.getLeft() != null)
             {
-                node2 = node1;
-                node1 = node1.getRight();
+                node1 = node1.getLeft();
+                while (node1.getRight() != null)
+                {
+                    node2 = node1;
+                    node1 = node1.getRight();
+                }
+                root.setData(node1.getData());
+                node2.setRight(null);
+                nodeCount--;
+                return true;
             }
-            root.setData(node1.getData());
-            node2.setRight(null);
-            if(root.getRight() == null && root.getData().equals(root.getLeft().getData()))
-            {
-                setRoot(root.getLeft());
-            }
-            else if(root.getLeft() == null && root.getData().equals(root.getRight().getData()))
+            else if(root.getRight() != null)
             {
                 setRoot(root.getRight());
+                nodeCount--;
+                return true;
             }
-            nodeCount--;
-            return true;
+            else
+            {
+                root = null;
+                nodeCount--;
+                return true;
+            }
         }
         while(true)
         {
