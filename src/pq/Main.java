@@ -107,7 +107,7 @@ public class Main
         String choice = "";
         while(!choice.equalsIgnoreCase("X"))
         {
-            System.out.print("\nMethods for Priority Queue (BInary Search Tree Implementation)\n1 - ENQUEUE - Adds " +
+            System.out.print("\nMethods for Priority Queue (Binary Search Tree Implementation)\n1 - ENQUEUE - Adds " +
                             "an element to the Priority Queue\n2 - DEQUEUE - Removes the largest element\n3 - IS " +
                     "EMPTY - Checks if the Priority Queue is empty\n4 - IS FULL - Checks if the Priority Queue is " +
                             "full\n5 - SIZE - Reports the number of elements in the Priority Queue\nX - Terminate\n" +
