@@ -1,15 +1,13 @@
 package pq;
 
-public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
-{
+public class PriorityQueueBST<T> implements PriorityQueueInterface<T> {
     private BinarySearchTree<T> bst;
     private int balanceCounter = 0;
 
     /**
      * Constructor creates a new BST Priority Queue with a Binary Search Tree as a wrapper class.
      */
-    public PriorityQueueBST()
-    {
+    public PriorityQueueBST() {
         bst = new BinarySearchTree<>();
     }
 
@@ -17,12 +15,10 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
      * enqueue Adds a new element to the Priority Queue. The BST is rebalanced every 4 elements enqueued.
      * @param item The element to be added.
      */
-    public void enqueue(T item)
-    {
+    public void enqueue(T item) {
         bst.insert(item);
         balanceCounter++;
-        if(balanceCounter == 4)
-        {
+        if(balanceCounter == 4) {
             bst.setRoot(bst.balance(0, bst.size() - 1));
             balanceCounter = 0;
         }
@@ -32,10 +28,8 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
      * dequeue Removes the highest priority element from the Priority Queue.
      * @return The highest priority element.
      */
-    public T dequeue()
-    {
-        if(bst.isEmpty())
-        {
+    public T dequeue() {
+        if(bst.isEmpty()) {
             return null;
         }
         T max = bst.maxNode();
@@ -47,8 +41,7 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
      * isEmpty Reports if the Priority Queue is empty.
      * @return True if the Priority Queue is empty, false otherwise.
      */
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return bst.isEmpty();
     }
 
@@ -56,8 +49,7 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
      * isFull Reports if the Priority Queue is full.
      * @return True if the Priority Queue is full, false otherwise.
      */
-    public boolean isFull()
-    {
+    public boolean isFull() {
         return false;
     }
 
@@ -65,8 +57,7 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T>
      * size Reports the total number of elements contained in the Priority Queue.
      * @return The count of all elements contained in the Priority Queue.
      */
-    public int size()
-    {
+    public int size() {
         return bst.size();
     }
 }
