@@ -2,8 +2,7 @@ package pq;
 
 import java.util.Comparator;
 
-public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
-{
+public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T> {
     private Node<T> front;
     private int total = 0;
     private Comparator<T> comp;
@@ -11,13 +10,11 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
     /**
      * Constructor creates a new unsorted Linked List Priority Queue.
      */
-    public PriorityQueueUnsortedLL()
-    {
+    public PriorityQueueUnsortedLL() {
         front = null;
-        comp = new Comparator<T>()
-        {
-            public int compare(T o1, T o2)
-            {
+        comp = new Comparator<T>() {
+            @Override
+            public int compare(T o1, T o2) {
                 return ((Comparable)o1).compareTo(o2);
             }
         };
@@ -27,18 +24,12 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * Adds a new element to the Priority Queue.
      * @param item The element to be added.
      */
-    public void enqueue(T item)
-    {
+    public void enqueue(T item) {
         Node<T> node = new Node<>(item);
-        if(isEmpty())
-        {
-            front = node;
-        }
-        else
-        {
+        if (!isEmpty()) {
             node.setNext(front);
-            front = node;
         }
+        front = node;
         total++;
     }
 
@@ -46,41 +37,29 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * dequeue Removes the highest priority element from the Priority Queue.
      * @return The highest priority element.
      */
-    public T dequeue()
-    {
-        if(isEmpty())
-        {
+    public T dequeue() {
+        if(isEmpty()) {
             return null;
         }
         T highest = findHighest();
-        if(total == 1)
-        {
+        if(total == 1) {
             front = null;
             total--;
             return highest;
         }
         Node<T> parser = front;
-        while(parser != null)
-        {
-            if(parser == front && comp.compare(parser.getData(), highest) == 0)
-            {
+        while(parser != null) {
+            if(parser == front && comp.compare(parser.getData(), highest) == 0) {
                 front = front.getNext();
                 break;
-            }
-            else if(comp.compare(parser.getNext().getData(), highest) == 0)
-            {
-                if(parser.getNext().getNext() != null)
-                {
+            } else if(comp.compare(parser.getNext().getData(), highest) == 0) {
+                if(parser.getNext().getNext() != null) {
                     parser.setNext(parser.getNext().getNext());
-                }
-                else
-                {
+                } else {
                     parser.setNext(null);
                 }
                 break;
-            }
-            else
-            {
+            } else {
                 parser = parser.getNext();
             }
         }
@@ -92,14 +71,11 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * findHighest Searches the Linked List for the highest priority element.
      * @return The value of the highest priority element.
      */
-    private T findHighest()
-    {
+    private T findHighest() {
         T highest = front.getData();
         Node<T> parser = front;
-        while(parser != null)
-        {
-            if(comp.compare(parser.getData(), highest) >= 0)
-            {
+        while(parser != null) {
+            if(comp.compare(parser.getData(), highest) >= 0) {
                 highest = parser.getData();
             }
             parser = parser.getNext();
@@ -111,8 +87,7 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * isEmpty Reports if the Priority Queue is empty.
      * @return True if the Priority Queue is empty, false otherwise.
      */
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return total == 0;
     }
 
@@ -120,8 +95,7 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * isFull Reports if the Priority Queue is full.
      * @return True if the Priority Queue is full, false otherwise.
      */
-    public boolean isFull()
-    {
+    public boolean isFull() {
         return false;
     }
 
@@ -129,8 +103,7 @@ public class PriorityQueueUnsortedLL<T> implements PriorityQueueInterface<T>
      * size Reports the total number of elements contained in the Priority Queue.
      * @return The count of all elements contained in the Priority Queue.
      */
-    public int size()
-    {
+    public int size() {
         return total;
     }
 }
