@@ -1,7 +1,6 @@
 package pq;
 
-public class BSTNode<T>
-{
+public class BSTNode<T> {
     private T data;
     private BSTNode<T> left;
     private BSTNode<T> right;
@@ -10,8 +9,7 @@ public class BSTNode<T>
      * Constructor sets a node's data to the value passed in, and the right left references to null.
      * @param d The data for the node to hold.
      */
-    public BSTNode(T d)
-    {
+    public BSTNode(T d) {
         data = d;
         left = right = null;
     }
@@ -20,8 +18,7 @@ public class BSTNode<T>
      * setData Sets the node's data to the value passed in.
      * @param d the data to be held by the node.
      */
-    public void setData(T d)
-    {
+    public void setData(T d) {
         data = d;
     }
 
@@ -29,8 +26,7 @@ public class BSTNode<T>
      * getData Returns the data held by the node.
      * @return The data held by the node.
      */
-    public T getData()
-    {
+    public T getData() {
         return data;
     }
 
@@ -38,8 +34,7 @@ public class BSTNode<T>
      * setLeft Sets the left node reference to the node passed in.
      * @param l The node to be set as the left reference.
      */
-    public void setLeft(BSTNode<T> l)
-    {
+    public void setLeft(BSTNode<T> l) {
         left = l;
     }
 
@@ -47,8 +42,7 @@ public class BSTNode<T>
      * setRight Sets the right node reference to the node passed in.
      * @param r The node to be set as the right reference.
      */
-    public void setRight(BSTNode<T> r)
-    {
+    public void setRight(BSTNode<T> r) {
         right = r;
     }
 
@@ -56,8 +50,7 @@ public class BSTNode<T>
      * getLeft Returns the left node reference.
      * @return The left node referenced.
      */
-    public BSTNode<T> getLeft()
-    {
+    public BSTNode<T> getLeft() {
         return left;
     }
 
@@ -65,8 +58,7 @@ public class BSTNode<T>
      * getRight Returns the right node reference.
      * @return The right node referenced.
      */
-    public BSTNode<T> getRight()
-    {
+    public BSTNode<T> getRight() {
         return right;
     }
 }
