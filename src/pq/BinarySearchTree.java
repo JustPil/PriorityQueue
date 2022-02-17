@@ -462,7 +462,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
             } else if(comp.compare(node1.getData(), data) < 0) {
                 node2 = node1;
                 node1 = node1.getRight();
-            } else {
+            } else if(comp.compare(node1.getData(), data) == 0) {
                 if(node1.getRight() == null && node1.getLeft() == null && node2.getRight() == node1) {
                     node2.setRight(null);
                 } else if(node1.getRight() == null && node1.getLeft() == null && node2.getLeft() == node1) {
@@ -481,6 +481,8 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
                 }
                 nodeCount--;
                 return true;
+            } else {
+                return false;
             }
         }
     }
