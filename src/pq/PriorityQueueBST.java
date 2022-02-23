@@ -19,7 +19,7 @@ public class PriorityQueueBST<T> implements PriorityQueueInterface<T> {
         bst.insert(item);
         balanceCounter++;
         if(balanceCounter == 4) {
-            bst.setRoot(bst.balance(0, bst.size() - 1));
+            bst.balance();
             balanceCounter = 0;
         }
     }
