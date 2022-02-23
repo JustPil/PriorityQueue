@@ -435,7 +435,12 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
         BSTNode<T> node1 = root;
         BSTNode<T> node2 = node1;
         if(root.getData().equals(data)) {
-            if(root.getLeft() != null) {
+            if(root.getLeft() != null && root.getRight() == null) {
+                root = root.getLeft();
+                nodeCount--;
+                return true;
+            }
+            else if(root.getLeft() != null) {
                 node1 = node1.getLeft();
                 while (node1.getRight() != null) {
                     node2 = node1;
@@ -446,7 +451,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
                 nodeCount--;
                 return true;
             } else if(root.getRight() != null) {
-                setRoot(root.getRight());
+                root = root.getRight();
                 nodeCount--;
                 return true;
             } else {
@@ -510,31 +515,43 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
     }
 
     /**
-     * balance Balances the BST using a recursive balancing algorithm. An array containing the inorder values of the
-     * nodes is used to continually insert the middle index as a parent node through recursion and manipulation of the
-     * start and end indexes until all elements have been inserted.
-     * @param start The start index of the array.
-     * @param end The end index of the array.
-     * @return The node of the new BST to assign to the root node.
+     * balance Balances the BST using an iterative balancing algorithm requiring a Stack for nodes and a Stack for the
+     * start and end array indices with respect to the node's middle position in the array. The start and end indices
+     * change as teh new BST is built.
      */
-    public BSTNode<T> balance(int start, int end) {
-        if(start > end) {
-            return null;
+    public void balance() {
+        if(nodeCount <= 1) {
+            return;
         }
         inOrder();
-        int mid = start + (end - start) / 2;
-        BSTNode<T> node = new BSTNode<>(array[mid]);
-        node.setLeft(balance(start, mid - 1));
-        node.setRight(balance(mid + 1, end));
-        return node;
-    }
-
-    /**
-     * setRoot sets the root node to a new BST node.
-     * @param n The new BST node for root to access.
-     */
-    public void setRoot(BSTNode<T> n) {
-        root = n;
+        Stack<BSTNode<T>> nodeStack = new Stack<>();
+        Stack<Integer> indexStack = new Stack<>();
+        indexStack.push(array.length - 1);
+        indexStack.push(0);
+        BSTNode<T> balanceRoot = new BSTNode<>(null);
+        nodeStack.push(balanceRoot);
+        while(!nodeStack.isEmpty()) {
+            BSTNode<T> parsingNode = nodeStack.pop();
+            int start = indexStack.pop();
+            int end = indexStack.pop();
+            int mid = start + (end - start) / 2;
+            parsingNode.setData(array[mid]);
+            if(start < mid) {
+                BSTNode<T> node = new BSTNode<>(array[start]);
+                parsingNode.setLeft(node);
+                nodeStack.push(node);
+                indexStack.push(mid - 1);
+                indexStack.push(start);
+            }
+            if(end > mid) {
+                BSTNode<T> node = new BSTNode<>(array[end]);
+                parsingNode.setRight(node);
+                nodeStack.push(node);
+                indexStack.push(end);
+                indexStack.push(mid + 1);
+            }
+        }
+        root = balanceRoot;
     }
 
     /**
@@ -557,7 +574,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
      */
     public int optimalHeight() {
         BSTNode<T> storage = root;
-        root = balance(0, size() - 1);
+        balance();
         int optimalHeight = height();
         root = storage;
         return optimalHeight;
