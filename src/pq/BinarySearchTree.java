@@ -517,7 +517,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeInterface<T> {
     /**
      * balance Balances the BST using an iterative balancing algorithm requiring a Stack for nodes and a Stack for the
      * start and end array indices with respect to the node's middle position in the array. The start and end indices
-     * change as teh new BST is built.
+     * change as the new BST is built.
      */
     public void balance() {
         if(nodeCount <= 1) {
