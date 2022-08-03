@@ -57,8 +57,7 @@ public class BinarySearchTree<T> implements BinarySeachTreeInterface<T> {
      */
     public boolean insert(T data) {
         if(root == null) {
-            BSTNode<T> node = new BSTNode<>(data);
-            root = node;
+            root = new BSTNode<>(data);
             nodeCount++;
             return true;
         }
@@ -117,25 +116,24 @@ public class BinarySearchTree<T> implements BinarySeachTreeInterface<T> {
     /**
      * replacement Finds the replacement node to replace a node targeted for removal. The replacement node is copied for
      * a return value and removed from the BST.
-     * @param n The node intended for removal.
+     * @param target The node intended for removal.
      * @return The replacement node.
      */
-    private T replacement(BSTNode<T> n) {
-        BSTNode<T> replace = n;
-        BSTNode<T> deleter = replace;
-        if(n.getLeft() != null) {
-            deleter = replace;
-            replace = replace.getLeft();
+    private T replacement(BSTNode<T> target) {
+        BSTNode<T> parentRaf = target;
+        if(target.getLeft() != null) {
+            parentRaf = target;
+            target = target.getLeft();
         }
-        while(replace.getRight() != null) {
-            deleter = replace;
-            replace = replace.getRight();
+        while(target.getRight() != null) {
+            parentRaf = target;
+            target = target.getRight();
         }
-        T copy = replace.getData();
-        if(deleter.getRight() != null && deleter.getRight().equals(replace)) {
-            deleter.setRight(null);
+        T copy = target.getData();
+        if(parentRaf.getRight() != null && parentRaf.getRight().equals(target)) {
+            parentRaf.setRight(null);
         } else {
-            deleter.setLeft(null);
+            parentRaf.setLeft(null);
         }
         return copy;
     }
